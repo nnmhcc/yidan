@@ -90,7 +90,7 @@ cards:
     icon_image: ""
     tag: "广告"
     meta: "genrati.xyz"
-    background_image: "https://github.com/nnmhcc/nnmhcc.github.io/blob/main/static/512.png?raw=true"
+    background_image: "https://github.com/nnmhcc/yidan/blob/main/static/512.png?raw=true"
     size: "normal"
     disabled: false
 
