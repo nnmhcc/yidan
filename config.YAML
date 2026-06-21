@@ -1,0 +1,117 @@
+# 一耽漫画永久页配置
+# 修改本文件即可调整页面标题、公告、页脚和卡片内容。
+# background_image 可以留空，也可以填写图片 URL。
+# size 可选：normal / large。
+# disabled: true 时卡片不可点击，href 可留空。
+
+site:
+  title: "一耽漫画永久页"
+  hero_title: "一耽漫画"
+  hero_subtitle: "永久页"
+  notice: "重要公告：请收藏本页以获取一耽漫画最新地址，防止迷路！如遇无法访问，请尝试备用域名或关注下方 Telegram 频道。您的每一次点击广告，就是我们坚持下去的动力！"
+  footer: "© 2025 一耽漫画官方发布"
+
+theme:
+  accent: "#2563eb"
+  accent_light: "#60a5fa"
+  background: "#f7fbff"
+
+cards:
+  - title: "官方 APP 下载"
+    description: "点击下载官方 APP，仅支持安卓！"
+    href: "https://cdn.yidanmh.xyz/nnmh_v1.0.0.apk"
+    icon: "❤️"
+    icon_image: ""
+    tag: "APP"
+    meta: "cdn.yidanmh.xyz"
+    background_image: ""
+    size: "large"
+    disabled: false
+
+  - title: "中国大陆优化地址"
+    description: "中国大陆用户点此进入。"
+    href: "https://yidanmh.me/"
+    icon: "✅"
+    icon_image: ""
+    tag: "大陆优化"
+    meta: "nnmh.me"
+    background_image: ""
+    size: "large"
+    disabled: false
+
+  - title: "国际域名 1"
+    description: "支持大陆用户与国际用户访问。"
+    href: "https://ydanmh.com/"
+    icon: "🌐"
+    icon_image: ""
+    tag: "国际域名 1"
+    meta: "ydanmh.com"
+    background_image: ""
+    size: "normal"
+    disabled: false
+
+  - title: "国际域名 2"
+    description: "支持大陆用户与国际用户访问。"
+    href: "https://yidangirl.com"
+    icon: "🌐"
+    icon_image: ""
+    tag: "国际域名 2"
+    meta: "yidangirl.com"
+    background_image: ""
+    size: "normal"
+    disabled: false
+
+  - title: "国际域名 3"
+    description: "支持大陆用户与国际用户访问。"
+    href: "https://blmh66.com"
+    icon: "🌐"
+    icon_image: ""
+    tag: "国际域名 3"
+    meta: "blmh66.com"
+    background_image: ""
+    size: "normal"
+    disabled: false
+
+  - title: "国际域名 4"
+    description: "支持大陆用户与国际用户访问。"
+    href: "https://yandanshe.net"
+    icon: "🌐"
+    icon_image: ""
+    tag: "国际域名 4"
+    meta: "yandanshe.net"
+    background_image: ""
+    size: "normal"
+    disabled: false
+
+  - title: "AI 榨精淫欲"
+    description: "顶尖色情，即刻生图在线畅玩。多样角色场景 18 禁性癖待你开发！"
+    href: "https://fengyueai.pro?ref_id=59548cdf-1afa-4e16-af9f-b505124f536c"
+    icon: "🎨"
+    icon_image: ""
+    tag: "广告"
+    meta: "genrati.xyz"
+    background_image: "https://github.com/nnmhcc/nnmhcc.github.io/blob/main/static/512.png?raw=true"
+    size: "normal"
+    disabled: false
+
+  - title: "Telegram 频道"
+    description: "欢迎关注电报频道，每天自动推送漫画更新。"
+    href: "https://t.me/nnmh_official"
+    icon: "✈️"
+    icon_image: ""
+    tag: "Telegram"
+    meta: "t.me/nnmh_official"
+    background_image: ""
+    size: "large"
+    disabled: false
+
+  - title: "更多资源"
+    description: "敬请期待。"
+    href: ""
+    icon: "✨"
+    icon_image: ""
+    tag: "Coming Soon"
+    meta: "即将开放"
+    background_image: ""
+    size: "normal"
+    disabled: true

@@ -1,101 +1,740 @@
-<!DOCTYPE html>
-<html lang="zh" class="dark">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7fbff" />
   <title>一耽漫画永久页</title>
-  <meta name="description" content="一耽漫画永久发布页，实时更新最新地址，支持手机与电脑访问。">
-  <meta name="keywords" content="一耽漫画,永久地址,最新地址,漫画发布页,动漫">
-  <meta name="author" content="一耽漫画">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'media', // 根据系统深色偏好自动切换
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7fbff;
+      --bg-soft: #eaf4ff;
+      --text: rgba(12, 32, 68, .94);
+      --muted: rgba(33, 64, 112, .68);
+      --line: rgba(37, 99, 235, .18);
+      --glass: rgba(255, 255, 255, .62);
+      --glass-strong: rgba(255, 255, 255, .78);
+      --accent: #2563eb;
+      --accent-light: #60a5fa;
+      --accent-soft: rgba(37, 99, 235, .12);
+      --glow: rgba(37, 99, 235, .34);
+      --glow-strong: rgba(96, 165, 250, .48);
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --shadow: 0 24px 90px rgba(31, 91, 180, .14), 0 8px 30px rgba(15, 45, 92, .08);
+      --card-shadow: 0 22px 54px rgba(37, 99, 235, .13), inset 0 1px 0 rgba(255, 255, 255, .86);
+      --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
     }
-  </script>
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; background: var(--bg); }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(96, 165, 250, .42), transparent 28rem),
+        radial-gradient(circle at 90% 0%, rgba(219, 234, 254, .95), transparent 34rem),
+        radial-gradient(circle at 82% 88%, rgba(37, 99, 235, .18), transparent 30rem),
+        linear-gradient(145deg, #ffffff 0%, var(--bg) 48%, #eef7ff 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::before {
+      opacity: .28;
+      background-image:
+        linear-gradient(rgba(37, 99, 235, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, .06) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at 50% 20%, #000, transparent 72%);
+    }
+
+    body::after {
+      background:
+        linear-gradient(118deg, transparent 0 38%, rgba(255, 255, 255, .72) 44%, transparent 52% 100%),
+        radial-gradient(circle at 50% 120%, rgba(37, 99, 235, .08), transparent 30rem);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 54px 0 34px;
+      position: relative;
+    }
+
+    .hero {
+      position: relative;
+      border: 1px solid rgba(37, 99, 235, .16);
+      border-radius: var(--radius-xl);
+      padding: clamp(30px, 5vw, 58px);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.86), rgba(255,255,255,.42)),
+        radial-gradient(circle at 12% 0%, rgba(96, 165, 250, .26), transparent 34%),
+        radial-gradient(circle at 100% 18%, rgba(219, 234, 254, .88), transparent 36%);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.95);
+      backdrop-filter: blur(28px) saturate(145%);
+      -webkit-backdrop-filter: blur(28px) saturate(145%);
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      right: -240px;
+      top: -300px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), transparent 12%),
+        radial-gradient(circle, rgba(96, 165, 250, .28), transparent 62%);
+      filter: blur(.5px);
+      opacity: .95;
+      animation: liquidFloat 12s ease-in-out infinite alternate;
+    }
+
+    h1 {
+      position: relative;
+      margin: 0;
+      font-size: clamp(30px, 8.2vw, 78px);
+      line-height: 1.04;
+      letter-spacing: -.055em;
+      white-space: nowrap;
+      text-wrap: normal;
+      text-shadow: 0 10px 36px rgba(37, 99, 235, .16);
+    }
+
+    .title-gradient {
+      background: linear-gradient(92deg, #0f2d5c, var(--accent) 42%, #7dd3fc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .notice {
+      position: relative;
+      max-width: 800px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.9vw, 18px);
+      line-height: 1.85;
+    }
+
+    .notice strong,
+    .notice .strong {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .grid {
+      margin: 24px 0 0;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+      perspective: 1000px;
+    }
+
+    .card {
+      --rx: 0deg;
+      --ry: 0deg;
+      --mx: 50%;
+      --my: 18%;
+      --card-image: none;
+      position: relative;
+      grid-column: span 4;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      color: inherit;
+      text-decoration: none;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.95), transparent 0 16%, transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.74), rgba(255,255,255,.44) 48%, rgba(219,234,254,.68));
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(26px) saturate(170%);
+      -webkit-backdrop-filter: blur(26px) saturate(170%);
+      transform: rotateX(var(--rx)) rotateY(var(--ry)) translateY(0) translateZ(0);
+      transform-style: preserve-3d;
+      transition: transform .26s cubic-bezier(.2,.8,.2,1), border-color .26s ease, box-shadow .26s ease, background .26s ease;
+    }
+
+    .card.size-large { grid-column: span 6; }
+
+    .card.has-image {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.34), rgba(239,246,255,.18)),
+        var(--card-image) center / cover no-repeat;
+      background-blend-mode: soft-light, normal;
+    }
+
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .card::before {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.98), transparent 24% 72%, rgba(219,234,254,.62)),
+        radial-gradient(circle at 0 0, var(--glow-strong), transparent 34%),
+        radial-gradient(circle at 100% 100%, rgba(37, 99, 235, .18), transparent 31%);
+      opacity: .34;
+      mask-image: linear-gradient(#000, transparent 90%);
+    }
+
+    .card.has-image::before {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.22), transparent 30% 76%, rgba(219,234,254,.18)),
+        radial-gradient(circle at 0 0, rgba(96,165,250,.18), transparent 28%);
+      opacity: .24;
+    }
+
+    .card.has-image::after {
+      opacity: 0;
+    }
+
+    .card::after {
+      inset: -45%;
+      background: conic-gradient(from 180deg, transparent, rgba(255,255,255,.72), rgba(96, 165, 250, .42), rgba(37, 99, 235, .18), transparent 72%);
+      filter: blur(20px);
+      opacity: 0;
+      transform: rotate(10deg) scale(.92);
+      transition: opacity .26s ease, transform .26s ease;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      border-color: rgba(37, 99, 235, .30);
+      box-shadow:
+        0 18px 44px rgba(37, 99, 235, .15),
+        0 0 22px rgba(96, 165, 250, .18),
+        inset 0 1px 0 rgba(255, 255, 255, .96);
+      transform: rotateX(var(--rx)) rotateY(var(--ry)) translateY(-3px) translateZ(6px);
+    }
+
+    .card:hover::after,
+    .card:focus-visible::after {
+      opacity: .38;
+      transform: rotate(14deg) scale(.96);
+    }
+
+    .card:focus-visible {
+      outline: 3px solid rgba(37, 99, 235, .28);
+      outline-offset: 4px;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      transform: translateZ(10px);
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 18px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.92), rgba(219,234,254,.58)),
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,1), transparent 48%);
+      border: 1px solid rgba(37, 99, 235, .16);
+      box-shadow: 0 14px 30px rgba(37,99,235,.13), inset 0 1px 0 rgba(255,255,255,.92);
+      font-size: 24px;
+      color: var(--accent);
+      overflow: hidden;
+    }
+
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(37,99,235,.15);
+      background: rgba(255,255,255,.56);
+      color: rgba(15, 45, 92, .62);
+      font-size: 12px;
+      letter-spacing: .04em;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: -.02em;
+      transform: translateZ(12px);
+      color: rgba(12, 32, 68, .96);
+    }
+
+    .card p {
+      margin: 8px 0 0;
+      color: rgba(33, 64, 112, .70);
+      line-height: 1.7;
+      font-size: 15px;
+      transform: translateZ(8px);
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      transform: translateZ(10px);
+      color: rgba(33, 64, 112, .72);
+      font-size: 14px;
+    }
+
+    .arrow {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(255, 255, 255, .58);
+      border: 1px solid rgba(37, 99, 235, .16);
+      box-shadow: 0 10px 22px rgba(37,99,235,.10), inset 0 1px 0 rgba(255,255,255,.92);
+      transition: transform .28s ease, background .28s ease;
+    }
+
+    .card:hover .arrow,
+    .card:focus-visible .arrow {
+      transform: translateX(2px);
+      background: rgba(219, 234, 254, .78);
+    }
+
+    .card.disabled {
+      cursor: default;
+      opacity: .72;
+    }
+
+    .card.disabled:hover {
+      transform: none;
+      border-color: var(--line);
+      box-shadow: var(--card-shadow);
+    }
+
+    .footer {
+      margin: 28px auto 0;
+      text-align: center;
+      color: rgba(33, 64, 112, .55);
+      font-size: 14px;
+    }
+
+    .status {
+      min-height: 120px;
+      grid-column: 1 / -1;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.58);
+      color: var(--muted);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    @keyframes liquidFloat {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); border-radius: 44% 56% 62% 38% / 40% 48% 52% 60%; }
+      100% { transform: translate3d(-30px, 38px, 0) rotate(16deg) scale(1.08); border-radius: 58% 42% 45% 55% / 56% 46% 54% 44%; }
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        width: min(100% - 24px, 720px);
+        padding-top: 22px;
+      }
+
+      .grid { gap: 14px; }
+
+      .card,
+      .card.size-large {
+        grid-column: span 12;
+        min-height: 168px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero {
+        border-radius: 24px;
+        padding: 28px 18px;
+      }
+
+      h1 {
+        font-size: clamp(28px, 9vw, 36px);
+        letter-spacing: -.06em;
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .card-top { align-items: center; }
+
+      .icon {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      .card,
+      .card:hover,
+      .card:focus-visible { transform: none; }
+    }
+  </style>
 </head>
-<script defer src="https://u.nnmh.cc/script.js" data-website-id="c3fa14e9-a3f3-4882-885c-6e7d1d2f3b37"></script>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col items-center p-4">
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title"><span class="title-gradient" data-field="hero-title">一耽漫画</span><span class="hero-title-gap" aria-hidden="true"> </span><span data-field="hero-subtitle">永久页</span></h1>
+      <p class="notice" data-field="notice">正在加载页面配置...</p>
+    </section>
 
-  <!-- 标题 -->
-  <h1 class="text-3xl md:text-4xl font-bold text-center my-8">一耽漫画永久页</h1>
+    <section class="grid" aria-label="访问入口" id="cardGrid">
+      <div class="status">正在加载 config.YAML...</div>
+    </section>
 
-  <!-- 公告横幅卡片 -->
-  <div class="w-full max-w-4xl mx-auto mb-8">
-    <div class="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 rounded-xl shadow p-4 text-center text-base font-medium border border-yellow-200 dark:border-yellow-800">
-      📢 重要公告：請收藏本頁以獲取一耽漫畫最新地址，防止迷路！如遇無法訪問，請嘗試備用域名或關注下方 Telegram 頻道。</br>😘 您的每一次點擊廣告，就是我們堅持下去的動力！
-    </div>
-  </div>
+    <footer class="footer" data-field="footer"></footer>
+  </main>
 
-  <!-- 多行按钮容器（Bento 卡片风格） -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl w-full">
-    <!-- APP -->
-    <a href="https://cdn.yidanmh.xyz/nnmh_v1.0.0.apk" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-green-100 dark:bg-green-900 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-green-200 dark:border-green-800">
-      <span class="text-3xl mb-2">❤️</span>
-      <span class="text-lg font-semibold mb-1">官方 APP</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">点击下载官方APP，仅支持安卓！</span>
-    </a>
-    <!-- 卡片1 -->
-    <a href="https://yidanmh.me" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-green-100 dark:bg-green-900 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-green-200 dark:border-green-800">
-      <span class="text-3xl mb-2">✅️</span>
-      <span class="text-lg font-semibold mb-1">中国大陆优化地址</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">中国大陆用户点此进入</span>
-    </a>
-    <!-- 卡片2 -->
-    <a href="https://yidanmh.com" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">🌍</span>
-      <span class="text-lg font-semibold mb-1">国际域名1</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">❌大陆用户 ✅️国际用户</span>
-    </a>
-    <!-- 卡片3 -->
-    <a href="https://blmh66.com" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">🌍</span>
-      <span class="text-lg font-semibold mb-1">国际域名2</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">✅️大陆用户 ✅️国际用户</span>
-    </a>
-    <!-- 卡片4 -->
-    <a href="https://blmh55.com" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">🌍</span>
-      <span class="text-lg font-semibold mb-1">国际域名3</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">✅️大陆用户 ✅️国际用户</span>
-    </a>
-    <!-- 卡片5 -->
-    <a href="https://ydanmh.com" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">🌎</span>
-      <span class="text-lg font-semibold mb-1">国际域名4</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">✅️大陆用户 ✅️国际用户</span>
-    </a>
-    <!-- 卡片6 -->
-    <a href="https://yidangirl.com" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">🌎</span>
-      <span class="text-lg font-semibold mb-1">国际域名5</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">✅️大陆用户 ✅️国际用户</span>
-    </a>
-    <!-- 卡片7 -->
-    <a href="#" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">🌎</span>
-      <span class="text-lg font-semibold mb-1">广告位招租</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400"></span>
-    </a>
-    <!-- 卡片8 -->
-    <a href="https://t.me/nnmh_official" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">📣</span>
-      <span class="text-lg font-semibold mb-1">Telegram频道</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">欢迎关注电报频道，每天自动推送漫画更新</span>
-    </a>
-    <!-- 卡片9 -->
-    <!-- <a href="#" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-      <span class="text-3xl mb-2">🎁</span>
-      <span class="text-lg font-semibold mb-1">更多资源</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">敬请期待</span>
-    </a> -->
-  </div>
+  <script>
+    const fallbackConfig = {
+      site: {
+        title: "一耽漫画永久页",
+        hero_title: "一耽漫画",
+        hero_subtitle: "永久页",
+        notice: "重要公告：请收藏本页以获取一耽漫画最新地址，防止迷路！如遇无法访问，请尝试备用域名或关注下方 Telegram 频道。您的每一次点击广告，就是我们坚持下去的动力！",
+        footer: "© 2025 一耽漫画官方发布"
+      },
+      theme: {
+        accent: "#2563eb",
+        accent_light: "#60a5fa",
+        background: "#f7fbff"
+      },
+      cards: []
+    };
 
+    function stripYamlComment(line) {
+      let single = false;
+      let double = false;
+      let escaped = false;
+      for (let i = 0; i < line.length; i += 1) {
+        const char = line[i];
+        if (escaped) { escaped = false; continue; }
+        if (char === "\\" && double) { escaped = true; continue; }
+        if (char === "'" && !double) single = !single;
+        if (char === '"' && !single) double = !double;
+        if (char === "#" && !single && !double) return line.slice(0, i);
+      }
+      return line;
+    }
 
-  <!-- 底部提示 -->
-  <footer class="mt-12 text-xs text-gray-400 text-center">
-    © 2025 一耽漫画官方发布
-  </footer>
+    function splitYamlKeyValue(text) {
+      let single = false;
+      let double = false;
+      let escaped = false;
+      for (let i = 0; i < text.length; i += 1) {
+        const char = text[i];
+        if (escaped) { escaped = false; continue; }
+        if (char === "\\" && double) { escaped = true; continue; }
+        if (char === "'" && !double) single = !single;
+        if (char === '"' && !single) double = !double;
+        if (char === ":" && !single && !double) {
+          return [text.slice(0, i).trim(), text.slice(i + 1).trim()];
+        }
+      }
+      return [text.trim(), ""];
+    }
 
+    function parseScalar(value) {
+      const raw = value.trim();
+      if (raw === "") return "";
+      if (raw === "true") return true;
+      if (raw === "false") return false;
+      if (raw === "null" || raw === "~") return null;
+      if ((raw.startsWith('"') && raw.endsWith('"')) || (raw.startsWith("'") && raw.endsWith("'"))) {
+        const body = raw.slice(1, -1);
+        if (raw[0] === '"') {
+          return body
+            .replace(/\\n/g, "\n")
+            .replace(/\\r/g, "\r")
+            .replace(/\\t/g, "\t")
+            .replace(/\\"/g, '"')
+            .replace(/\\\\/g, "\\");
+        }
+        return body.replace(/''/g, "'");
+      }
+      if (/^-?\d+(\.\d+)?$/.test(raw)) return Number(raw);
+      return raw;
+    }
+
+    function parseSimpleYaml(text) {
+      const lines = text
+        .replace(/^\uFEFF/, "")
+        .split(/\r?\n/)
+        .map((line) => stripYamlComment(line))
+        .filter((line) => line.trim() !== "")
+        .map((line) => ({
+          indent: line.match(/^ */)[0].length,
+          content: line.trim()
+        }));
+
+      let index = 0;
+
+      function parseBlock(indent) {
+        if (index >= lines.length) return {};
+        const startsArray = lines[index].indent === indent && lines[index].content.startsWith("- ");
+
+        if (startsArray) {
+          const array = [];
+          while (index < lines.length && lines[index].indent === indent && lines[index].content.startsWith("- ")) {
+            let rest = lines[index].content.slice(2).trim();
+            index += 1;
+
+            if (rest === "") {
+              array.push(parseBlock(indent + 2));
+              continue;
+            }
+
+            if (rest.includes(":")) {
+              const item = {};
+              const [firstKey, firstValue] = splitYamlKeyValue(rest);
+              item[firstKey] = firstValue === "" ? parseBlock(indent + 2) : parseScalar(firstValue);
+
+              while (index < lines.length && lines[index].indent > indent) {
+                const line = lines[index];
+                if (line.indent === indent + 2 && !line.content.startsWith("- ")) {
+                  const [key, value] = splitYamlKeyValue(line.content);
+                  index += 1;
+                  item[key] = value === "" ? parseBlock(indent + 4) : parseScalar(value);
+                } else {
+                  break;
+                }
+              }
+              array.push(item);
+            } else {
+              array.push(parseScalar(rest));
+            }
+          }
+          return array;
+        }
+
+        const object = {};
+        while (index < lines.length && lines[index].indent === indent && !lines[index].content.startsWith("- ")) {
+          const [key, value] = splitYamlKeyValue(lines[index].content);
+          index += 1;
+          object[key] = value === "" ? parseBlock(indent + 2) : parseScalar(value);
+        }
+        return object;
+      }
+
+      return parseBlock(0);
+    }
+
+    function normalizeConfig(config) {
+      return {
+        site: { ...fallbackConfig.site, ...(config.site || {}) },
+        theme: { ...fallbackConfig.theme, ...(config.theme || {}) },
+        cards: Array.isArray(config.cards) ? config.cards : []
+      };
+    }
+
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      if (theme.accent) root.style.setProperty("--accent", theme.accent);
+      if (theme.accent_light) root.style.setProperty("--accent-light", theme.accent_light);
+      if (theme.background) root.style.setProperty("--bg", theme.background);
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta && theme.background) meta.setAttribute("content", theme.background);
+    }
+
+    function setText(selector, value) {
+      const node = document.querySelector(selector);
+      if (node) node.textContent = value || "";
+    }
+
+    function renderNotice(text) {
+      const notice = document.querySelector('[data-field="notice"]');
+      if (!notice) return;
+      notice.textContent = text || "";
+      const value = notice.textContent;
+      const marker = "重要公告：";
+      if (value.startsWith(marker)) {
+        notice.textContent = "";
+        const strong = document.createElement("strong");
+        strong.textContent = marker;
+        notice.append(strong, value.slice(marker.length));
+      }
+    }
+
+    function makeCard(card) {
+      const disabled = Boolean(card.disabled) || !card.href;
+      const element = disabled ? document.createElement("article") : document.createElement("a");
+      element.className = "card";
+      if (card.size === "large") element.classList.add("size-large");
+      if (disabled) element.classList.add("disabled");
+
+      if (!disabled) {
+        element.href = card.href;
+        element.target = "_blank";
+        element.rel = "noopener noreferrer";
+      } else {
+        element.setAttribute("aria-label", card.title || "未命名卡片");
+      }
+
+      if (card.background_image) {
+        element.classList.add("has-image");
+        element.style.setProperty("--card-image", `url("${String(card.background_image).replace(/"/g, "\\\"")}")`);
+      }
+
+      const top = document.createElement("div");
+      top.className = "card-top";
+
+      const icon = document.createElement("span");
+      icon.className = "icon";
+      icon.setAttribute("aria-hidden", "true");
+      if (card.icon_image) {
+        const img = document.createElement("img");
+        img.src = card.icon_image;
+        img.alt = "";
+        icon.appendChild(img);
+      } else {
+        icon.textContent = card.icon || "•";
+      }
+
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = card.tag || "LINK";
+      top.append(icon, tag);
+
+      const content = document.createElement("div");
+      const title = document.createElement("h2");
+      title.textContent = card.title || "未命名卡片";
+      const description = document.createElement("p");
+      description.textContent = card.description || "";
+      content.append(title, description);
+
+      const bottom = document.createElement("div");
+      bottom.className = "card-bottom";
+      const meta = document.createElement("span");
+      meta.textContent = card.meta || (card.href ? card.href.replace(/^https?:\/\//, "").replace(/\/$/, "") : "");
+      const arrow = document.createElement("span");
+      arrow.className = "arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = disabled ? "…" : "→";
+      bottom.append(meta, arrow);
+
+      element.append(top, content, bottom);
+      return element;
+    }
+
+    function bindCardMotion() {
+      const cards = document.querySelectorAll(".card:not(.disabled)");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      cards.forEach((card) => {
+        card.addEventListener("pointermove", (event) => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          const px = x / rect.width;
+          const py = y / rect.height;
+          const rotateY = (px - .5) * 3;
+          const rotateX = (.5 - py) * 3;
+          card.style.setProperty("--rx", `${rotateX.toFixed(2)}deg`);
+          card.style.setProperty("--ry", `${rotateY.toFixed(2)}deg`);
+          card.style.setProperty("--mx", `${(px * 100).toFixed(1)}%`);
+          card.style.setProperty("--my", `${(py * 100).toFixed(1)}%`);
+        });
+
+        card.addEventListener("pointerleave", () => {
+          card.style.setProperty("--rx", "0deg");
+          card.style.setProperty("--ry", "0deg");
+          card.style.setProperty("--mx", "50%");
+          card.style.setProperty("--my", "18%");
+        });
+      });
+    }
+
+    function renderSite(rawConfig) {
+      const config = normalizeConfig(rawConfig || {});
+      const grid = document.getElementById("cardGrid");
+      applyTheme(config.theme);
+
+      document.title = config.site.title;
+      setText('[data-field="hero-title"]', config.site.hero_title);
+      setText('[data-field="hero-subtitle"]', config.site.hero_subtitle);
+      setText('[data-field="footer"]', config.site.footer);
+      renderNotice(config.site.notice);
+
+      grid.textContent = "";
+      if (!config.cards.length) {
+        const status = document.createElement("div");
+        status.className = "status";
+        status.textContent = "config.YAML 中暂未配置任何卡片。";
+        grid.appendChild(status);
+      } else {
+        config.cards.forEach((card) => grid.appendChild(makeCard(card || {})));
+      }
+      bindCardMotion();
+    }
+
+    async function loadConfig() {
+      try {
+        const response = await fetch("./config.YAML", { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        renderSite(parseSimpleYaml(text));
+      } catch (error) {
+        console.warn("无法加载 config.YAML，已使用内置兜底配置：", error);
+        renderSite(fallbackConfig);
+      }
+    }
+
+    loadConfig();
+  </script>
 </body>
 </html>
