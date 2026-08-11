@@ -180,6 +180,103 @@
 
     .card.size-large { grid-column: span 6; }
 
+
+    /* 随机域名入口：固定优先显示，并用独立动效增强辨识度 */
+    .card.random-domain-card {
+      order: -1;
+      border-color: rgba(37, 99, 235, .42);
+      background:
+        radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.98), transparent 0 18%, transparent 38%),
+        radial-gradient(circle at 8% 0%, rgba(96,165,250,.24), transparent 42%),
+        linear-gradient(135deg, rgba(255,255,255,.88), rgba(219,234,254,.70) 52%, rgba(191,219,254,.58));
+      box-shadow:
+        0 24px 62px rgba(37, 99, 235, .20),
+        0 0 0 1px rgba(96, 165, 250, .08),
+        0 0 28px rgba(96, 165, 250, .20),
+        inset 0 1px 0 rgba(255,255,255,.98);
+      animation: randomCardGlow 2.6s ease-in-out infinite;
+    }
+
+    .card.random-domain-card::before {
+      inset: -1px;
+      opacity: .72;
+      background:
+        linear-gradient(115deg,
+          transparent 0%,
+          transparent 30%,
+          rgba(255,255,255,.18) 38%,
+          rgba(255,255,255,.92) 47%,
+          rgba(125,211,252,.32) 53%,
+          transparent 62%,
+          transparent 100%);
+      background-size: 230% 100%;
+      background-position: 130% 0;
+      mask-image: none;
+      animation: randomCardSheen 3.6s ease-in-out infinite;
+    }
+
+    .card.random-domain-card::after {
+      inset: -55%;
+      opacity: .34;
+      filter: blur(24px);
+      background:
+        conic-gradient(from 0deg,
+          transparent 0 18%,
+          rgba(96,165,250,.18) 28%,
+          rgba(255,255,255,.82) 38%,
+          rgba(37,99,235,.24) 48%,
+          transparent 61% 100%);
+      animation: randomCardOrbit 8s linear infinite;
+    }
+
+    .card.random-domain-card:hover,
+    .card.random-domain-card:focus-visible {
+      border-color: rgba(37, 99, 235, .58);
+      box-shadow:
+        0 28px 72px rgba(37, 99, 235, .24),
+        0 0 38px rgba(96, 165, 250, .28),
+        inset 0 1px 0 rgba(255,255,255,1);
+    }
+
+    .card.random-domain-card:hover::after,
+    .card.random-domain-card:focus-visible::after {
+      opacity: .50;
+    }
+
+    .random-domain-card .icon {
+      border-color: rgba(37,99,235,.30);
+      box-shadow:
+        0 14px 30px rgba(37,99,235,.18),
+        0 0 20px rgba(96,165,250,.20),
+        inset 0 1px 0 rgba(255,255,255,.96);
+      animation: randomIconFloat 1.8s ease-in-out infinite;
+    }
+
+    .random-domain-card .tag {
+      color: rgba(15,45,92,.82);
+      border-color: rgba(37,99,235,.28);
+      background: rgba(239,246,255,.82);
+      box-shadow:
+        0 0 0 0 rgba(37,99,235,.16),
+        inset 0 1px 0 rgba(255,255,255,.96);
+      animation: randomTagPulse 1.9s ease-in-out infinite;
+    }
+
+    .random-domain-card h2 {
+      color: rgba(15,45,92,.98);
+      text-shadow: 0 6px 20px rgba(37,99,235,.12);
+    }
+
+    .random-domain-card .arrow {
+      background: rgba(239,246,255,.90);
+      border-color: rgba(37,99,235,.28);
+      box-shadow:
+        0 10px 24px rgba(37,99,235,.15),
+        0 0 18px rgba(96,165,250,.16),
+        inset 0 1px 0 rgba(255,255,255,.96);
+      animation: randomArrowNudge 1.35s ease-in-out infinite;
+    }
+
     .card.has-image {
       background:
         linear-gradient(145deg, rgba(255,255,255,.34), rgba(239,246,255,.18)),
@@ -367,6 +464,56 @@
       -webkit-backdrop-filter: blur(18px);
     }
 
+
+    @keyframes randomCardGlow {
+      0%, 100% {
+        box-shadow:
+          0 24px 62px rgba(37, 99, 235, .18),
+          0 0 0 1px rgba(96, 165, 250, .08),
+          0 0 22px rgba(96, 165, 250, .16),
+          inset 0 1px 0 rgba(255,255,255,.98);
+      }
+      50% {
+        box-shadow:
+          0 28px 70px rgba(37, 99, 235, .24),
+          0 0 0 1px rgba(96, 165, 250, .14),
+          0 0 36px rgba(96, 165, 250, .28),
+          inset 0 1px 0 rgba(255,255,255,1);
+      }
+    }
+
+    @keyframes randomCardSheen {
+      0%, 18% { background-position: 135% 0; opacity: .30; }
+      48%, 62% { opacity: .78; }
+      82%, 100% { background-position: -135% 0; opacity: .28; }
+    }
+
+    @keyframes randomCardOrbit {
+      from { transform: rotate(0deg) scale(.94); }
+      to { transform: rotate(360deg) scale(.94); }
+    }
+
+    @keyframes randomIconFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-5px) rotate(2deg); }
+    }
+
+    @keyframes randomTagPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37,99,235,.16), inset 0 1px 0 rgba(255,255,255,.96);
+      }
+      50% {
+        transform: scale(1.035);
+        box-shadow: 0 0 0 7px rgba(37,99,235,0), inset 0 1px 0 rgba(255,255,255,.96);
+      }
+    }
+
+    @keyframes randomArrowNudge {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(4px); }
+    }
+
     @keyframes liquidFloat {
       0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); border-radius: 44% 56% 62% 38% / 40% 48% 52% 60%; }
       100% { transform: translate3d(-30px, 38px, 0) rotate(16deg) scale(1.08); border-radius: 58% 42% 45% 55% / 56% 46% 54% 44%; }
@@ -453,6 +600,7 @@
         accent_light: "#60a5fa",
         background: "#f7fbff"
       },
+      domains: [],
       cards: []
     };
 
@@ -481,7 +629,7 @@
         if (char === "\\" && double) { escaped = true; continue; }
         if (char === "'" && !double) single = !single;
         if (char === '"' && !single) double = !double;
-        if (char === ":" && !single && !double) {
+        if (char === ":" && !single && !double && (i === text.length - 1 || /\s/.test(text[i + 1]))) {
           return [text.slice(0, i).trim(), text.slice(i + 1).trim()];
         }
       }
@@ -538,9 +686,11 @@
               continue;
             }
 
-            if (rest.includes(":")) {
+            const [firstKey, firstValue] = splitYamlKeyValue(rest);
+            const isObjectItem = firstKey !== rest || firstValue !== "";
+
+            if (isObjectItem) {
               const item = {};
-              const [firstKey, firstValue] = splitYamlKeyValue(rest);
               item[firstKey] = firstValue === "" ? parseBlock(indent + 2) : parseScalar(firstValue);
 
               while (index < lines.length && lines[index].indent > indent) {
@@ -577,6 +727,7 @@
       return {
         site: { ...fallbackConfig.site, ...(config.site || {}) },
         theme: { ...fallbackConfig.theme, ...(config.theme || {}) },
+        domains: Array.isArray(config.domains) ? config.domains : [],
         cards: Array.isArray(config.cards) ? config.cards : []
       };
     }
@@ -609,14 +760,44 @@
       }
     }
 
-    function makeCard(card) {
-      const disabled = Boolean(card.disabled) || !card.href;
+    function normalizeDomainUrl(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+
+      const candidate = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+      try {
+        const url = new URL(candidate);
+        if (!url.hostname || !["http:", "https:"].includes(url.protocol)) return "";
+        return url.href;
+      } catch (error) {
+        console.warn("已忽略无效域名：", raw);
+        return "";
+      }
+    }
+
+    function getDomainPool(domains) {
+      if (!Array.isArray(domains)) return [];
+      return domains.map(normalizeDomainUrl).filter(Boolean);
+    }
+
+    function makeCard(card, domains = []) {
+      const isRandomDomain = card.action === "random_domain";
+      const domainPool = isRandomDomain ? getDomainPool(domains) : [];
+      const disabled = Boolean(card.disabled) || (isRandomDomain ? domainPool.length === 0 : !card.href);
       const element = disabled ? document.createElement("article") : document.createElement("a");
       element.className = "card";
+      if (isRandomDomain) element.classList.add("random-domain-card");
       if (card.size === "large") element.classList.add("size-large");
       if (disabled) element.classList.add("disabled");
 
-      if (!disabled) {
+      if (!disabled && isRandomDomain) {
+        element.href = "#";
+        element.addEventListener("click", (event) => {
+          event.preventDefault();
+          const target = domainPool[Math.floor(Math.random() * domainPool.length)];
+          if (target) window.location.assign(target);
+        });
+      } else if (!disabled) {
         element.href = card.href;
         element.target = "_blank";
         element.rel = "noopener noreferrer";
@@ -717,7 +898,7 @@
         status.textContent = "config.YAML 中暂未配置任何卡片。";
         grid.appendChild(status);
       } else {
-        config.cards.forEach((card) => grid.appendChild(makeCard(card || {})));
+        config.cards.forEach((card) => grid.appendChild(makeCard(card || {}, config.domains)));
       }
       bindCardMotion();
     }
