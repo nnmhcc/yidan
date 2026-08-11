@@ -1,5 +1,6 @@
 # 一耽漫画永久页配置
-# 修改本文件即可调整页面标题、公告、页脚和卡片内容。
+# 修改本文件即可调整页面标题、公告、页脚、随机域名列表和卡片内容。
+# domains 中每行填写一个域名或完整 URL；不写协议时会自动使用 https://。
 # background_image 可以留空，也可以填写图片 URL。
 # size 可选：normal / large。
 # disabled: true 时卡片不可点击，href 可留空。
@@ -16,6 +17,13 @@ theme:
   accent_light: "#60a5fa"
   background: "#f7fbff"
 
+# 随机跳转域名池：可继续添加、删除或替换。
+# 支持写完整 URL（如 https://example.com/path）或只写域名（如 example.com）。
+domains:
+  - "https://ydanmh.com"
+  - "https://yidangirl.com"
+  - "https://ydanmh.me"
+
 cards:
   - title: "官方 APP 下载"
     description: "点击下载官方 APP，仅支持安卓！"
@@ -28,70 +36,26 @@ cards:
     size: "large"
     disabled: false
 
-  - title: "中国大陆优化地址"
-    description: "中国大陆用户点此进入。"
-    href: "https://yidanmh.me/"
-    icon: "✅"
+  - title: "点击跳转"
+    description: "点击后将从可用域名中随机选择一个入口并跳转。"
+    action: "random_domain"
+    icon: "🚀"
     icon_image: ""
-    tag: "大陆优化"
-    meta: "nnmh.me"
+    tag: "随机入口"
+    meta: "点击随机跳转"
     background_image: ""
     size: "large"
     disabled: false
 
-  - title: "国际域名 1"
-    description: "支持大陆用户与国际用户访问。"
-    href: "https://ydanmh.com/"
-    icon: "🌐"
-    icon_image: ""
-    tag: "国际域名 1"
-    meta: "ydanmh.com"
-    background_image: ""
-    size: "normal"
-    disabled: false
-
-  - title: "国际域名 2"
-    description: "支持大陆用户与国际用户访问。"
-    href: "https://yidangirl.com"
-    icon: "🌐"
-    icon_image: ""
-    tag: "国际域名 2"
-    meta: "yidangirl.com"
-    background_image: ""
-    size: "normal"
-    disabled: false
-
-  - title: "国际域名 3"
-    description: "支持大陆用户与国际用户访问。"
-    href: "https://blmh66.com"
-    icon: "🌐"
-    icon_image: ""
-    tag: "国际域名 3"
-    meta: "blmh66.com"
-    background_image: ""
-    size: "normal"
-    disabled: false
-
-  - title: "国际域名 4"
-    description: "支持大陆用户与国际用户访问。"
-    href: "https://yandanshe.net"
-    icon: "🌐"
-    icon_image: ""
-    tag: "国际域名 4"
-    meta: "yandanshe.net"
-    background_image: ""
-    size: "normal"
-    disabled: false
-
   - title: "AI 榨精淫欲"
     description: "顶尖色情，即刻生图在线畅玩。多样角色场景 18 禁性癖待你开发！"
-    href: "https://fengyueai.pro/zh?keywords=%E8%80%BD%E7%BE%8E&ranking=overall_rank&ref_id=59548cdf-1afa-4e16-af9f-b505124f536c"
+    href: "https://afengy.app/zh/explore/apps?ranking=overall_rank&display=simple&keywords=%E8%80%BD%E7%BE%8E&ref_id=c17fe576-db7d-4461-9fe4-bf51ff0f5ce9"
     icon: "🎨"
     icon_image: ""
     tag: "广告"
     meta: "genrati.xyz"
-    background_image: "https://github.com/nnmhcc/yidan/blob/main/static/512.png?raw=true"
-    size: "normal"
+    background_image: "https://github.com/nnmhcc/nnmhcc.github.io/blob/main/static/512.png?raw=true"
+    size: "large"
     disabled: false
 
   - title: "Telegram 频道"
@@ -104,14 +68,3 @@ cards:
     background_image: ""
     size: "large"
     disabled: false
-
-  - title: "更多资源"
-    description: "敬请期待。"
-    href: ""
-    icon: "✨"
-    icon_image: ""
-    tag: "Coming Soon"
-    meta: "即将开放"
-    background_image: ""
-    size: "normal"
-    disabled: true
